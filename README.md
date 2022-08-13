@@ -4,7 +4,11 @@ This model is designed to classify messages sent in disaster situations.
 
 It is trained on real world events sent during disaster events and can then take a new message as an input and predict the category of message.
 
+
+
 ## Instructions
+
+Before running the code, make sure you have install plotly.express and ligthgbm.
 
 1. Clean data
 

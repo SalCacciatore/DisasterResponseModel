@@ -1,4 +1,4 @@
-# DisasterResponseModel
+# Disaster Response Model
 
 This model is designed to classify messages sent in disaster situations.
 

@@ -14,6 +14,10 @@ import plotly.express as px
 import joblib
 from sqlalchemy import create_engine
 
+import nltk
+nltk.download('wordnet')
+nltk.download('omw-1.4')
+
 
 app = Flask(__name__)
 

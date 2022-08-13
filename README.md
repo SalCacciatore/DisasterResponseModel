@@ -10,7 +10,7 @@ It is trained on real world events sent during disaster events and can then take
 
 Run the following code:
 
-## python process_data.py disaster_messages.csv disaster_categories.csv DisasterResponse.db
+python process_data.py disaster_messages.csv disaster_categories.csv DisasterResponse.db
 
 This runs the "process_data" notebook, takes the "disaster_messages" and 'disaster_categories" files, cleans the data and assigns them to "DisasterResponse".
 
@@ -18,7 +18,7 @@ This runs the "process_data" notebook, takes the "disaster_messages" and 'disast
 
 Run the following code:
 
-## python train_classifier.py DisasterResponse.db classifier.pkl
+python train_classifier.py DisasterResponse.db classifier.pkl
 
 This takes the data from "DisasterResponse" to train the model store in the "classifier" file.
 
@@ -26,4 +26,4 @@ This takes the data from "DisasterResponse" to train the model store in the "cla
 
 Run the following code:
 
-## python run.py
+python run.py

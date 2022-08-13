@@ -8,7 +8,7 @@ It is trained on real world events sent during disaster events and can then take
 
 ## Instructions
 
-Before running the code, make sure you have install plotly.express, WordCLoud and ligthgbm.
+Before running the code, make sure you have installed plotly.express, WordCLoud and ligthgbm.
 
 ***1. Clean data***
 

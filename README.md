@@ -10,28 +10,28 @@ It is trained on real world events sent during disaster events and can then take
 
 Before running the code, make sure you have install plotly.express and ligthgbm.
 
-***1. Clean data
+***1. Clean data***
 
 Run the following code:
 
-*python process_data.py disaster_messages.csv disaster_categories.csv DisasterResponse.db
+*python process_data.py disaster_messages.csv disaster_categories.csv DisasterResponse.db*
 
 This runs the "process_data" notebook, takes the "disaster_messages" and 'disaster_categories" files, cleans the data and assigns them to "DisasterResponse".
 
-***2. Train model
+***2. Train model***
 
 Run the following code:
 
-*python train_classifier.py DisasterResponse.db classifier.pkl
+*python train_classifier.py DisasterResponse.db classifier.pkl*
 
 This takes the data from "DisasterResponse" to train the model store in the "classifier" file.
 
-***3. Run the app
+***3. Run the app***
 
 Run the following code:
 
-*python run.py
+*python run.py*
 
-***4. Use the app
+***4. Use the app***
 
 In your web browser, go to the app. Then, input a message, click "Classify Message" and then you can see the result.

@@ -4,7 +4,25 @@ This model is designed to classify messages sent in disaster situations.
 
 It is trained on real world events sent during disaster events and can then take a new message as an input and predict the category of message.
 
+During such situations, first responders can be flooded with a variety of different messages. It is tremendously valuable for communities to have the ability to sort through and organize these messages to help deliver approriate responses.
 
+## Files in this Repository
+
+***app***
+- master.html # main page of web app
+- go.html # classification result page of web app
+- run.py # Flask file that runs app
+
+***data***
+- disaster_categories.csv # data to process
+- disaster_messages.csv # data to process
+- process_data.py #python notebook that processes the above csv files
+
+***models***
+- train_classifier.py #python notebook that creates and trains the classification model
+
+***other***
+- README.md
 
 ## Instructions
 

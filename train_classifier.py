@@ -1,14 +1,46 @@
 import sys
 import re
 from sklearn.model_selection import GridSearchCV
+from nltk.tokenize import word_tokenize
+from nltk.tokenize import sent_tokenize
+import pandas as pd
+from sqlalchemy import create_engine
+import re
+import nltk
+
+from sklearn.multioutput import MultiOutputClassifier
+from sklearn.pipeline import Pipeline
+from sklearn.feature_extraction.text import CountVectorizer,TfidfTransformer
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report
+from sklearn.linear_model import LogisticRegression
+from lightgbm import LGBMClassifier
+import numpy as np
+
+from sklearn.metrics import classification_report
+import pickle
+
+nltk.download('punkt')
+
 
 def load_data(database_filepath):
-    import pandas as pd
-    from sqlalchemy import create_engine
-    import re
-    import nltk
+    '''
+    Loads in the data from the SQL file.
+
+    Input:
+    database_filepath: the SQL files
+
+
+    Returns:
+    X: list of messages
+    y: dataframe with the target variables
+    df.columns[4:]: list of category names
+
+    '''
+
+
     nltk.download('punkt')
-    
+
     engine = create_engine('sqlite:///{}'.format(database_filepath))
     df = pd.read_sql('df',engine)
     X = df['message']
@@ -16,23 +48,29 @@ def load_data(database_filepath):
     return X, y, df.columns[4:]
 
 def tokenize(text):
-    from nltk.tokenize import word_tokenize
-    from nltk.tokenize import sent_tokenize
+    '''
+    Splits string of text into individual words
+
+    Input:
+    text: String object
+
+    Returns:
+    word_tokenize(lower): list of lowercase words
+
+    '''
     lower = text.lower()
     lower = re.sub(r"[^a-zA-Z0-9]", " ", lower)
+
     return word_tokenize(lower)
 
 
 def build_model():
-    from sklearn.multioutput import MultiOutputClassifier
-    from sklearn.pipeline import Pipeline
-    from sklearn.feature_extraction.text import CountVectorizer,TfidfTransformer
-    from sklearn.ensemble import RandomForestClassifier
-    from sklearn.model_selection import train_test_split
-    from sklearn.metrics import classification_report
-    from sklearn.linear_model import LogisticRegression
-    from lightgbm import LGBMClassifier
-    import numpy as np
+    '''
+    Builds and tunes classification pipeline
+
+    Returns:
+    cv: tuned classification pipeline
+    '''
 
     pipeline = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize)),
@@ -45,38 +83,49 @@ def build_model():
 }
 
     cv = GridSearchCV(pipeline, param_grid=parameters,scoring='f1_weighted',cv=2,verbose=3)
-    
+
     return cv
 
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
-    from sklearn.metrics import classification_report
+    '''
+    Measures how accurate the model is.
+
+    Inputs:
+    model: classification model
+    X_test: input variable of the test set
+    Y_test: target variable(s) of the test set
+    category_names: category names
+
+
+    '''
+
+
     Y_pred = model.predict(X_test)
+
     print(classification_report(Y_test,Y_pred,target_names=category_names))
 
 
 def save_model(model, model_filepath):
-    import pickle
+    '''
+    Saves tuned classification model as a pickle file.
+
+    Inputs:
+    model: the tuned classification model
+    model_filepath: the name of the pickle file
+
+    '''
+
     filename = model_filepath
     pickle.dump(model, open(filename, 'wb'))
 
 
 def main():
-    from sklearn.multioutput import MultiOutputClassifier
-    from sklearn.pipeline import Pipeline
-    from sklearn.feature_extraction.text import CountVectorizer,TfidfTransformer
-    from sklearn.ensemble import RandomForestClassifier
-    from sklearn.model_selection import train_test_split
-    from sklearn.metrics import classification_report
-    from sklearn.linear_model import LogisticRegression
-    from lightgbm import LGBMClassifier
-    import numpy as np
-    import pandas as pd
-    from sqlalchemy import create_engine
-    import re
-    import nltk
-    nltk.download('punkt')
+    '''
+    Runs the above functions together to create, tune and save the classification model.
+
+    '''
 
 
     if len(sys.argv) == 3:

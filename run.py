@@ -18,10 +18,23 @@ import nltk
 nltk.download('wordnet')
 nltk.download('omw-1.4')
 
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
 
 app = Flask(__name__)
 
 def tokenize(text):
+    '''
+    Breaks string into individual words
+
+    Inputs:
+    text: string object
+
+    Returns:
+    clean_tokens: list of cleaned strings
+
+    '''
+
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
 
@@ -44,7 +57,10 @@ model = joblib.load("classifier.pkl")
 @app.route('/')
 @app.route('/index')
 def index():
+    '''
+    Prepares data for display on webpage.
 
+    '''
     # extract data needed for visuals
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
@@ -57,8 +73,7 @@ def index():
     count_df2['Number'] = list(number)
     count_df2.sort_values(by='Number',ascending=False,inplace=True)
 
-    from wordcloud import WordCloud
-    import matplotlib.pyplot as plt
+
     word_list = list(df['message'])
     unique_string=(" ").join(word_list)
 
@@ -125,6 +140,10 @@ def index():
 # web page that handles user query and displays model results
 @app.route('/go')
 def go():
+
+    '''
+    Takes user input and takes it to display approriate predictions.
+    '''
     # save user input in query
     query = request.args.get('query', '')
 

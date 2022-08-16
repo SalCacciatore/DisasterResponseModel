@@ -21,7 +21,8 @@ from sklearn.metrics import classification_report
 import pickle
 
 nltk.download('punkt')
-
+nltk.download('wordnet')
+nltk.download('omw-1.4')
 
 def load_data(database_filepath):
     '''
@@ -61,7 +62,15 @@ def tokenize(text):
     lower = text.lower()
     lower = re.sub(r"[^a-zA-Z0-9]", " ", lower)
 
-    return word_tokenize(lower)
+    tokens = word_tokenize(lower)
+    lemmatizer = WordNetLemmatizer()
+  
+    clean_tokens = []
+    for tok in tokens:
+        clean_tok = lemmatizer.lemmatize(tok).lower().strip()
+        clean_tokens.append(clean_tok)
+
+    return clean_tokens
 
 
 def build_model():

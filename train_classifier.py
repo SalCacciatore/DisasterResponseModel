@@ -64,10 +64,10 @@ def tokenize(text):
 
     tokens = word_tokenize(lower)
     lemmatizer = WordNetLemmatizer()
-  
+
     clean_tokens = []
     for tok in tokens:
-        clean_tok = lemmatizer.lemmatize(tok).lower().strip()
+        clean_tok = lemmatizer.lemmatize(tok).strip()
         clean_tokens.append(clean_tok)
 
     return clean_tokens

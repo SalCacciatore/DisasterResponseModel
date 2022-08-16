@@ -7,6 +7,8 @@ import pandas as pd
 from sqlalchemy import create_engine
 import re
 import nltk
+from nltk.stem import WordNetLemmatizer
+
 
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.pipeline import Pipeline
